@@ -1,16 +1,20 @@
+from collections import Counter
+
+
 class Solution:
-    def findclosestnumber(self, nums: list[int]) -> int:
-        cnd = nums[0]
+    def isisomorphic(self, s: str, t: str):
+        ans = ""
 
-        for i in range(0, len(nums)):
+        mp = dict()
 
-            if abs(cnd) > abs(nums[i]):
-                cnd = nums[i]
+        a = [i[-1] for i in Counter(s).items()]
+        b = [i[-1] for i in Counter(t).items()]
 
-        if cnd < 0 and (cnd * -1) in nums:
-            return cnd * -1
-        else:
-            return cnd
+        for i in range(len(s)):
+            if s[i] not in mp:
+                mp[s[i]] = t[i]
 
-s = Solution()
-print(s.findclosestnumber([2077, -2077, 1]))
+        for i in s:
+            ans += mp[i]
+
+        return (ans == t) and (a == b)
